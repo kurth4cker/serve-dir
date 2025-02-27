@@ -3,8 +3,16 @@
 
 package main
 
-import "codeberg.org/kurth4cker/go-sample"
+import (
+	"net/http"
+
+	"github.com/labstack/echo/v4"
+)
 
 func main() {
-	sample.Helloln("world")
+	e := echo.New()
+	e.GET("/", func(c echo.Context) error {
+		return c.String(http.StatusOK, "hello world")
+	})
+	e.Logger.Fatal(e.Start(":8000"))
 }
